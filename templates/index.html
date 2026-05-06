@@ -1,30 +1,25 @@
 <!DOCTYPE html>
-
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>Matrimonio</title>
 
-```
 <style>
     body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-
-    background-image: url("/static/img/fondo.jpg");
-    background-size: cover;        /* que cubra toda la pantalla */
-    background-position: center;   /* centrada */
-    background-repeat: no-repeat;  /* no repetir */
-    background-attachment: fixed;  /* efecto elegante al hacer scroll */
-}
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-image: url("/static/img/fondo.jpg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
 
     .wrapper {
         max-width: 600px;
         margin: 30px auto;
         background: rgba(255, 255, 255, 0.6);
         padding: 30px;
-        /* border: 2px solid black; */
-    
     }
 
     h1 {
@@ -54,6 +49,11 @@
     .title {
         flex: 1;
         font-size: 18px;
+    }
+
+    .reservado {
+        font-size: 14px;
+        color: #333;
     }
 
     .btn {
@@ -100,7 +100,6 @@
         cursor: pointer;
     }
 </style>
-```
 
 </head>
 
@@ -109,42 +108,43 @@
 <div class="wrapper">
     <h1>Matrimonio</h1>
 
-```
-<div class="desc">
-    Puedes reservar solo uno por persona. <br>
-    Verde = disponible / Rojo = no disponible
-</div>
-
-{% for item in items %}
-<div class="item">
-    <img src="{{ item.image }}">
-
-    <div class="title">
-        - {{ item.title }}
+    <div class="desc">
+        Puedes reservar solo uno por persona. <br>
+        Verde = disponible / Rojo = no disponible
     </div>
 
-    <button class="btn {{ 'available' if item.available else 'unavailable' }}"
-            onclick="openModal({{ item.id }}, {{ 'true' if item.available else 'false' }})">
-        {{ 'Disponible' if item.available else 'No disponible' }}
-    </button>
-</div>
-{% endfor %}
-```
+    {% for item in items %}
+    <div class="item">
+        <img src="{{ item['image'] }}">
 
+        <div class="title">
+            - {{ item["title"] }}
+
+            {% if not item["available"] %}
+                <div class="reservado">
+                    Reservado por {{ item["reservado_por"] }}
+                </div>
+            {% endif %}
+        </div>
+
+        <button class="btn {{ 'available' if item['available'] else 'unavailable' }}"
+                onclick="openModal({{ item['id'] }}, {{ 'true' if item['available'] else 'false' }})">
+            {{ 'Disponible' if item['available'] else 'No disponible' }}
+        </button>
+    </div>
+    {% endfor %}
 </div>
 
+<!-- MODAL -->
 <div id="modal" class="modal">
     <div class="modal-box">
-        <p>Confirma el regalo</p>
+        <p>¿Confirmas la reserva de este regalo?</p>
 
-```
-    <div class="modal-buttons">
-        <button onclick="confirmAction()">Aceptar</button>
-        <button onclick="closeModal()">Cancelar</button>
+        <div class="modal-buttons">
+            <button onclick="confirmAction()">Aceptar</button>
+            <button onclick="closeModal()">Cancelar</button>
+        </div>
     </div>
-</div>
-```
-
 </div>
 
 <script>
@@ -162,7 +162,14 @@ function closeModal() {
 
 function confirmAction() {
     fetch(`/toggle/${currentId}`, { method: 'POST' })
-    .then(() => location.reload());
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            location.reload();
+        } else {
+            alert("Este regalo ya fue reservado");
+        }
+    });
 }
 </script>
 
