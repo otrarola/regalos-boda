@@ -1,0 +1,43 @@
+cd C:/Users/francisco.otarola/Desktop/Regalosboda
+
+echo database.db >> .gitignore
+
+echo __pycache__/ >> .gitignore
+
+echo *.pyc >> .gitignore
+
+git rm --cached database.db
+
+git status
+
+git add .
+
+git commit -m "actualiza proyecto y agrega gitignore"
+
+git push
+
+----------------------------   detalle code ---------------------
+
+
+# ir al proyecto
+cd C:/Users/francisco.otarola/Desktop/Regalosboda
+
+# crear gitignore (si no existe)
+echo database.db >> .gitignore
+echo __pycache__/ >> .gitignore
+echo *.pyc >> .gitignore
+
+# eliminar database.db del repo (si ya estaba)
+git rm --cached database.db
+
+# ver estado
+git status
+
+# agregar todo
+git add .
+
+# commit
+git commit -m "actualiza proyecto y agrega gitignore"
+
+# subir a github
+git push
