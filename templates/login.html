@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Bienvenidos</title>
+
+```
+<style>
+    body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-image: url("/static/img/login.jpg");
+    background-size: cover;        /* que cubra toda la pantalla */
+    background-position: center;   /* centrada */
+    background-repeat: no-repeat;  /* no repetir */
+    background-attachment: fixed;  /* efecto elegante al hacer scroll */           
+    }
+
+    .wrapper {
+        max-width: 600px;
+        margin: 40px auto;
+        padding: 40px;
+      /*  border: 2px solid black; */
+       background: rgba(255, 255, 255, 0.6);
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    .desc {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    label {
+        display: block;
+        margin-top: 20px;
+        font-size: 18px;
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        border: 1px solid #e4bfb9;
+    }
+
+    .btn {
+        display: block;
+        margin: 40px auto 0;
+        padding: 12px 30px;
+        background: black;
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        border-radius: 8px;
+    }
+</style>
+```
+
+</head>
+
+<body>
+
+<div class="wrapper">
+    <h1>Bienvenidos</h1>
+
+```
+<div class="desc">
+    Para ingresar a nuestro sistema ingresa tu nombre, rut y correo
+</div>
+
+<form action="/ingresar" method="POST">
+
+    <label>Nombre</label>
+    <input type="text" name="nombre" required>
+
+    <label>Rut</label>
+    <input type="text" name="rut" required>
+
+    <label>Correo</label>
+    <input type="email" name="correo" required>
+
+    <button class="btn" type="submit">Ingresar</button>
+
+</form>
+```
+
+</div>
+
+</body>
+</html>
